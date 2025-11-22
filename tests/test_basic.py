@@ -16,6 +16,7 @@ async def test_create_and_get_user(tmp_path):
     importlib.reload(database_module)
     # Reload main so it uses the updated database module
     import app.main as main_module
+
     importlib.reload(main_module)
 
     app = main_module.app
@@ -27,7 +28,9 @@ async def test_create_and_get_user(tmp_path):
 
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        response = await client.post("/users/", json={"name": "Alice", "email": "alice@example.com"})
+        response = await client.post(
+            "/users/", json={"name": "Alice", "email": "alice@example.com"}
+        )
         assert response.status_code == 200
         data = response.json()
         assert data["name"] == "Alice"

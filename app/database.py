@@ -13,6 +13,6 @@ metadata = MetaData()
 
 # For SQLite we need `check_same_thread=False` in connect_args
 if DATABASE_URL.startswith("sqlite:"):
-	engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+    engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 else:
-	engine = create_engine(DATABASE_URL)
+    engine = create_engine(DATABASE_URL)
