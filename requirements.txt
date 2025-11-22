@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+databases[sqlite]
+SQLAlchemy>=1.4
+pydantic
+pytest
+pytest-asyncio
+httpx
+aiosqlite
+email-validator
+alembic
