@@ -10,6 +10,8 @@ jobs:
   test-python:
     name: Test (Python)
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,6 +39,8 @@ jobs:
     name: Build Docker image
     needs: test-python
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
