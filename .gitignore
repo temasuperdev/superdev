@@ -1,3 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+dev.db
+*.db
+.env
+
+# IDEs
+.vscode/
+.idea/
+
+# system
+.DS_Store
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

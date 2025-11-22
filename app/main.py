@@ -1,21 +1,22 @@
 from fastapi import FastAPI, HTTPException
+from contextlib import asynccontextmanager
 from .database import database, engine, metadata
 from .schemas import User, UserCreate
 from .crud import create_user, get_user, list_users
 
-app = FastAPI(title="superdev API")
 
-
-@app.on_event("startup")
-async def startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Connect to the database and ensure tables exist at startup
     await database.connect()
-    # create tables if they don't exist
     metadata.create_all(engine)
+    try:
+        yield
+    finally:
+        await database.disconnect()
 
 
-@app.on_event("shutdown")
-async def shutdown():
-    await database.disconnect()
+app = FastAPI(title="superdev API", lifespan=lifespan)
 
 
 @app.post("/users/", response_model=User)

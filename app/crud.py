@@ -6,7 +6,10 @@ from .schemas import UserCreate
 async def create_user(user: UserCreate):
     query = users.insert().values(name=user.name, email=user.email)
     user_id = await database.execute(query)
-    return {**user.dict(), "id": user_id}
+    # use Pydantic v2 `model_dump()` to avoid deprecated `.dict()` usage
+    data = user.model_dump()
+    data["id"] = user_id
+    return data
 
 
 async def get_user(user_id: int):

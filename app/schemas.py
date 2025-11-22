@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 
 class UserCreate(BaseModel):
@@ -11,5 +11,5 @@ class User(BaseModel):
     name: str
     email: EmailStr
 
-    class Config:
-        orm_mode = True
+    # Pydantic v2 config: prefer `from_attributes` instead of deprecated `orm_mode`
+    model_config = ConfigDict(from_attributes=True)
